@@ -9,7 +9,7 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, Platform, StyleSheet, Text, View } from 'react-native';
 import RNQuiet from 'react-native-quiet';
 
 export default class App extends Component<{}> {
@@ -18,21 +18,22 @@ export default class App extends Component<{}> {
     message: '--'
   };
   componentDidMount() {
-    RNQuiet.sampleMethod('Testing', 123, (message) => {
-      this.setState({
-        status: 'native callback received',
-        message
-      });
-    });
+    RNQuiet.startQuietRx();//("ultrasonic-experimental");
+    RNQuiet.startQuietTx();//("ultrasonic-experimental");
   }
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>☆RNQuiet example☆</Text>
-        <Text style={styles.instructions}>STATUS: {this.state.status}</Text>
-        <Text style={styles.welcome}>☆NATIVE CALLBACK MESSAGE☆</Text>
-        <Text style={styles.instructions}>{this.state.message}</Text>
-      </View>
+      <TouchableOpacity
+        style={StyleSheet.absoluteFill}
+        onPress={() => RNQuiet.startQuietTx()}
+      >
+        <View style={styles.container}>
+          <Text style={styles.welcome}>☆RNQuiet example☆</Text>
+          <Text style={styles.instructions}>STATUS: {this.state.status}</Text>
+          <Text style={styles.welcome}>☆NATIVE CALLBACK MESSAGE☆</Text>
+          <Text style={styles.instructions}>{this.state.message}</Text>
+        </View>
+      </TouchableOpacity>
     );
   }
 }

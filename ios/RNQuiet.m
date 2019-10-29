@@ -1,21 +1,53 @@
 #import "RNQuiet.h"
 
 #import <AFNetworking/AFNetworking.h>
+#import <QuietModemKit/QuietModemKit.h>
 
 @implementation RNQuiet
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(sampleMethod:(NSString *)stringArgument numberParameter:(nonnull NSNumber *)numberArgument callback:(RCTResponseSenderBlock)callback)
+RCT_EXPORT_METHOD(startQuietTx)
 {
-    // TODO: Implement some actually useful functionality
-	AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-	manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
-	[manager GET:@"https://httpstat.us/200" parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-			callback(@[[NSString stringWithFormat: @"numberArgument: %@ stringArgument: %@ resp: %@", numberArgument, stringArgument, responseObject]]);
-	} failure:^(NSURLSessionTask *operation, NSError *error) {
-			callback(@[[NSString stringWithFormat: @"numberArgument: %@ stringArgument: %@ err: %@", numberArgument, stringArgument, error]]);
-	}];
+    
+    QMTransmitterConfig *txConf = [[QMTransmitterConfig alloc] initWithKey:@"ultrasonic-experimental"];
+
+    QMFrameTransmitter *tx = [[QMFrameTransmitter alloc] initWithConfig:txConf];
+
+    NSString *frame_str = @"Hello, World!";
+    NSData *frame = [frame_str dataUsingEncoding:NSUTF8StringEncoding];
+    [tx send:frame];
+
+    CFRunLoopRun();
+
+    [tx close];
+    NSLog(@"done");
+}
+
+static QMFrameReceiver *rx;
+
+void (^recv_callback)(NSData*) = ^(NSData *frame){
+    printf("%s\n", [frame bytes]);
+    NSLog(@"got a result");
+};
+
+void (^request_callback)(BOOL) = ^(BOOL granted){
+    QMReceiverConfig *rxConf = [[QMReceiverConfig alloc] initWithKey:@"ultrasonic-experimental"];
+    rx = [[QMFrameReceiver alloc] initWithConfig:rxConf];
+    [rx setReceiveCallback:recv_callback];
+};
+
+RCT_EXPORT_METHOD(startQuietRx)
+{
+    NSLog(@"starting");
+    [[AVAudioSession sharedInstance] requestRecordPermission:request_callback];
+
+    CFRunLoopRun();
+
+    if (rx != nil) {
+        [rx close];
+    }
+    NSLog(@"closed");
 }
 
 @end

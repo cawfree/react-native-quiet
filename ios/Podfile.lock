@@ -1,0 +1,16 @@
+PODS:
+  - QuietModemKit (0.0.1)
+
+DEPENDENCIES:
+  - QuietModemKit (~> 0.0.1)
+
+SPEC REPOS:
+  trunk:
+    - QuietModemKit
+
+SPEC CHECKSUMS:
+  QuietModemKit: d4ec7ef422a64caa8670babee8fc99ae2ce44852
+
+PODFILE CHECKSUM: 4c557be30f5781ca834ba6f2e80a38c8aef6ca4f
+
+COCOAPODS: 1.8.3

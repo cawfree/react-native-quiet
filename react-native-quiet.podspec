@@ -21,6 +21,6 @@ Pod::Spec.new do |s|
 
   s.dependency "React"
 	s.dependency 'AFNetworking', '~> 3.0'
-  # s.dependency "..."
+    s.dependency 'QuietModemKit', '~> 0.0.1'
 end
 
