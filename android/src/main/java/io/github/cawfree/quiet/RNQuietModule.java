@@ -1,5 +1,9 @@
 package io.github.cawfree.quiet;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -13,8 +17,10 @@ public class RNQuietModule extends ReactContextBaseJavaModule {
 
     /* Static Declations. */
     private static final String TAG = "RNQuiet";
+
+    /* Static, modisiable variables. (Antipattern!) */
     private static FrameTransmitter FRAME_TRANSMITTER = null;
-    private static FrameReceiver FRAME_RECEIVER = null;
+    private static FrameReceiver    FRAME_RECEIVER    = null;
 
     private final ReactApplicationContext reactContext;
 
@@ -30,24 +36,33 @@ public class RNQuietModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public final void start(final String pKey) {
+      // Place the beacon back into the initial state.
       this.stop();
-      Log.d(TAG, "start! "+pKey);
-      try {
-        FRAME_TRANSMITTER = new FrameTransmitter(
-          new FrameTransmitterConfig(
-            this.reactContext,
-            pKey
-          )
-        );
-        FRAME_RECEIVER = new FrameReceiver(
-          new FrameReceiverConfig(
-            this.reactContext,
-            pKey
-          )
-        );
-      } catch (final Exception pException) {
-        // Print the Stack Trace.
-        pException.printStackTrace();
+      // Check if we have permission.
+      final boolean hasPermission = ContextCompat.checkSelfPermission(this.reactContext, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+      // Do we have permission?
+      if (hasPermission) {
+        Log.d(TAG, "i have permission!");
+        try {
+          FRAME_TRANSMITTER = new FrameTransmitter(
+            new FrameTransmitterConfig(
+              this.reactContext,
+              pKey
+            )
+          );
+          FRAME_RECEIVER = new FrameReceiver(
+            new FrameReceiverConfig(
+              this.reactContext,
+              pKey
+            )
+          );
+        }
+        catch(final Exception pException) {
+          // Print the Stack Trace.
+          pException.printStackTrace();
+          // Stop running.
+          this.stop();
+        }
       }
     }
 
