@@ -17,15 +17,19 @@ export default class App extends Component<{}> {
     status: 'starting',
     message: '--'
   };
+  //@"ultrasonic-experimental"
   componentDidMount() {
-    RNQuiet.startQuietRx();//("ultrasonic-experimental");
-    RNQuiet.startQuietTx();//("ultrasonic-experimental");
+    RNQuiet
+      .start('ultrasonic-experimental');
+    RNQuiet.addListener(
+      (str) => console.log('got',str),
+    );
   }
   render() {
     return (
       <TouchableOpacity
         style={StyleSheet.absoluteFill}
-        onPress={() => RNQuiet.startQuietTx()}
+        onPress={() => RNQuiet.send("something")}
       >
         <View style={styles.container}>
           <Text style={styles.welcome}>☆RNQuiet example☆</Text>

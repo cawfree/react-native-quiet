@@ -7,47 +7,53 @@
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(startQuietTx)
-{
-    
-    QMTransmitterConfig *txConf = [[QMTransmitterConfig alloc] initWithKey:@"ultrasonic-experimental"];
-
-    QMFrameTransmitter *tx = [[QMFrameTransmitter alloc] initWithConfig:txConf];
-
-    NSString *frame_str = @"Hello, World!";
-    NSData *frame = [frame_str dataUsingEncoding:NSUTF8StringEncoding];
-    [tx send:frame];
-
-    CFRunLoopRun();
-
-    [tx close];
-    NSLog(@"done");
-}
-
+static QMFrameTransmitter *tx;
 static QMFrameReceiver *rx;
 
-void (^recv_callback)(NSData*) = ^(NSData *frame){
-    printf("%s\n", [frame bytes]);
-    NSLog(@"got a result");
-};
+- (NSArray<NSString *> *)supportedEvents {
+    return @[@"onMessageReceived"];
+}
 
-void (^request_callback)(BOOL) = ^(BOOL granted){
-    QMReceiverConfig *rxConf = [[QMReceiverConfig alloc] initWithKey:@"ultrasonic-experimental"];
-    rx = [[QMFrameReceiver alloc] initWithConfig:rxConf];
-    [rx setReceiveCallback:recv_callback];
-};
-
-RCT_EXPORT_METHOD(startQuietRx)
-{
-    NSLog(@"starting");
-    [[AVAudioSession sharedInstance] requestRecordPermission:request_callback];
-
-    CFRunLoopRun();
-
+void stop() {
     if (rx != nil) {
         [rx close];
+        rx = nil;
     }
-    NSLog(@"closed");
+    if (tx != nil) {
+        [tx close];
+        tx = nil;
+    }
+}
+
+RCT_EXPORT_METHOD(start: (NSString *)key)
+{
+    stop();
+    
+    tx = [[QMFrameTransmitter alloc] initWithConfig:[[QMTransmitterConfig alloc] initWithKey:key]];
+
+    [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted){
+        rx = [[QMFrameReceiver alloc] initWithConfig:[[QMReceiverConfig alloc] initWithKey:key]];
+        [rx setReceiveCallback:^(NSData *frame){
+            printf("%s\n", [frame bytes]);
+            [self sendEventWithName:@"onMessageReceived" body:[[NSString alloc] initWithData:frame encoding:NSUTF8StringEncoding]];
+        }];
+    }];
+
+    CFRunLoopRun();
+}
+
+RCT_EXPORT_METHOD(send: (NSString *)msg)
+{
+    NSData *frame = [msg dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [tx send:frame];
+    
+    CFRunLoopRun();
+}
+
+RCT_EXPORT_METHOD(stop)
+{
+    stop();
 }
 
 @end
