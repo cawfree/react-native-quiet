@@ -44,11 +44,13 @@ RCT_EXPORT_METHOD(start: (NSString *)key)
 
 RCT_EXPORT_METHOD(send: (NSString *)msg)
 {
-    NSData *frame = [msg dataUsingEncoding:NSUTF8StringEncoding];
-    
-    [tx send:frame];
-    
-    CFRunLoopRun();
+    if (tx != nil) {
+        NSData *frame = [msg dataUsingEncoding:NSUTF8StringEncoding];
+        
+        [tx send:frame];
+        
+        CFRunLoopRun();
+    }
 }
 
 RCT_EXPORT_METHOD(stop)
