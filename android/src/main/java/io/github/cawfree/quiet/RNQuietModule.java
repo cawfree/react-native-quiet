@@ -13,6 +13,8 @@ public class RNQuietModule extends ReactContextBaseJavaModule {
 
     /* Static Declations. */
     private static final String TAG = "RNQuiet";
+    private static FrameTransmitter FRAME_TRANSMITTER = null;
+    private static FrameReceiver FRAME_RECEIVER = null;
 
     private final ReactApplicationContext reactContext;
 
@@ -30,12 +32,38 @@ public class RNQuietModule extends ReactContextBaseJavaModule {
     public final void start(final String pKey) {
       this.stop();
       Log.d(TAG, "start! "+pKey);
+      try {
+        FRAME_TRANSMITTER = new FrameTransmitter(
+          new FrameTransmitterConfig(
+            this.reactContext,
+            pKey
+          )
+        );
+        FRAME_RECEIVER = new FrameReceiver(
+          new FrameReceiverConfig(
+            this.reactContext,
+            pKey
+          )
+        );
+      } catch (final Exception pException) {
+        // Print the Stack Trace.
+        pException.printStackTrace();
+      }
     }
 
     @ReactMethod
     public final void send(final String pMessage) {
       Log.d(TAG, "send "+pMessage);
-      
+      try {
+        if (FRAME_TRANSMITTER != null) {
+          // Transmit the message.
+          FRAME_TRANSMITTER.send(pMessage.getBytes());
+        }
+      }
+      catch (final Exception pException) {
+        // Print the Stack Trace.
+        pException.printStackTrace();
+      }
     }
 
     @ReactMethod
