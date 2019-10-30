@@ -1,8 +1,8 @@
 {
   "name": "react-native-quiet",
   "title": "React Native Quiet",
-  "version": "1.0.0",
-  "description": "TODO",
+  "version": "0.0.1",
+  "description": "🤫 Quiet for React Native.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,10 +13,19 @@
     "baseUrl": "https://github.com/cawfree/react-native-quiet"
   },
   "keywords": [
-    "react-native"
+    "react",
+    "react-native",
+    "quiet",
+    "quietjs",
+    "ultrasonic",
+    "data",
+    "audio",
+    "send",
+    "transmit",
+    "chirp"
   ],
   "author": {
-    "name": "Alex Thomas",
+    "name": "Alex Thomas (@cawfree)",
     "email": "hello@cawfree.com"
   },
   "license": "MIT",
