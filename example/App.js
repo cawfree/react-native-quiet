@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, View, StyleSheet, Image, TextInput, Text, Button } from 'react-native';
+import { SafeAreaView, View, StyleSheet, TextInput, Text, Button, Image } from 'react-native';
 import Quiet from 'react-native-quiet';
 
 const styles = StyleSheet
@@ -9,6 +9,9 @@ const styles = StyleSheet
         flex: 1,
         padding: 15,
         alignItems: 'center',
+      },
+      spacing: {
+        marginBottom: 15,
       },
       title: {
         color: 'white',
@@ -25,6 +28,17 @@ const styles = StyleSheet
         fontSize: 26,
         textAlign: 'center',
       },
+      logo: {
+        position: 'absolute',
+        bottom: 15,
+        width: 250,
+        height: 100,
+      },
+      logoContainer:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }
     },
   );
 
@@ -60,9 +74,13 @@ export default class App extends React.Component {
     const { msg, rcv } = this.state;
     return (
       <>
-        <Image
-          style={StyleSheet.absoluteFill}
-          source={{ uri: 'https://wearejh.com/content/uploads/2017/10/react-native-1500x1000.jpg' }}
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            {
+              backgroundColor: '#00D8FF',
+            },
+          ]}
         />
         <SafeAreaView
           style={[
@@ -76,10 +94,6 @@ export default class App extends React.Component {
               style={styles.title}
               children="Welcome to react-native-quiet!"
             />
-            <Text
-              style={styles.subtitle}
-              children="Communicate with ultrasound."
-            />
             <TextInput
               style={styles.textInput}
               onChangeText={msg => this.setState(
@@ -88,16 +102,27 @@ export default class App extends React.Component {
                 },
               )}
               value={msg}
-              placeholder="Enter a message to get started."
+              placeholder="Enter a message."
             />
             <Button
               title={msg.length ? 'Tap to send' : 'Type a Message'}
               onPress={this.onPress}
               disabled={!msg.length}
             />
+            <View
+              style={styles.spacing}
+            />
             <Text
               style={rcv.length ? styles.title : undefined}
               children={rcv.length ? `Received: "${rcv}"` : 'Detected messages will be displayed here. (Devices can listen to themselves)'}
+            />
+          </View>
+          <View
+            style={styles.logoContainer}
+          >
+            <Image
+              style={styles.logo}
+              source={{ uri: 'https://camo.githubusercontent.com/662bcd3919d8d23a56e80ae4044c3ab676585864/68747470733a2f2f71756965742e6769746875622e696f2f716d705f6865616465725f742e706e67' }}
             />
           </View>
         </SafeAreaView>
