@@ -1,11 +1,18 @@
 package io.github.cawfree.quiet;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 
+import org.quietmodem.Quiet.*;
+
 public class RNQuietModule extends ReactContextBaseJavaModule {
+
+    /* Static Declations. */
+    private static final String TAG = "RNQuiet";
 
     private final ReactApplicationContext reactContext;
 
@@ -16,12 +23,24 @@ public class RNQuietModule extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return "RNQuiet";
+        return RNQuietModule.TAG;
     }
 
     @ReactMethod
-    public void sampleMethod(String stringArgument, int numberArgument, Callback callback) {
-        // TODO: Implement some actually useful functionality
-        callback.invoke("Received numberArgument: " + numberArgument + " stringArgument: " + stringArgument);
+    public final void start(final String pKey) {
+      this.stop();
+      Log.d(TAG, "start! "+pKey);
     }
+
+    @ReactMethod
+    public final void send(final String pMessage) {
+      Log.d(TAG, "send "+pMessage);
+      
+    }
+
+    @ReactMethod
+    public final void stop() {
+      Log.d(TAG, "stop!");
+    }
+    
 }
