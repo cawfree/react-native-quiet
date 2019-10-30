@@ -54,6 +54,10 @@ repositories {
         // Android JSC is installed from npm
         url "$rootDir/../node_modules/jsc-android/dist"
     }
+    maven {
+        // Android Quiet is packaged by react-native-quiet.
+        url "$rootDir/../node_modules/react-native-quiet/android/org.quietmodem.Quiet/quiet"
+    }
     google()
     jcenter()
 }
@@ -63,6 +67,7 @@ dependencies {
     // https://github.com/facebook/react-native/blob/0.61-stable/template/android/app/build.gradle#L192
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
+    implementation project(':quiet')
 }
 
 def configureReactNativePom(def pom) {

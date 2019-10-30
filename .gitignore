@@ -42,3 +42,6 @@ buck-out/
 *.keystore
 ios/Pods/
 example/ios/Pods/
+
+android/org.quietmodem.Quiet/build/
+example/android/app/build

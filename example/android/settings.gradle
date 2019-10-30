@@ -1,5 +1,7 @@
 rootProject.name = 'example'
 include ':react-native-quiet'
 project(':react-native-quiet').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-quiet/android')
+include ':quiet'
+project(':quiet').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-quiet/android/org.quietmodem.Quiet/quiet')
 
 include ':app'
