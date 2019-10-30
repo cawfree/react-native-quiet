@@ -4,6 +4,7 @@ This is a [React Native](https://facebook.github.io/react-native/) wrapper aroun
 
   - Super cross-platform. (You just need a microphone and a speaker.)
   - Broadcast to devices within range without pairing.
+  - No network connection required.
 
 Quiet can even go _ultrasonic_, allowing us to communicate without impacting on noise levels that are perceptible by human ears.
 
