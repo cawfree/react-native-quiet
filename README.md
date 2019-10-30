@@ -1,6 +1,6 @@
 # react-native-quiet
 
-This is a [React Native](https://facebook.github.io/react-native/) wrapper around the [Quiet Project](https://github.com/quiet/quiet), which enables us to transfer data over sound at a high speed. This has a number of benefits:
+This is a [React Native](https://facebook.github.io/react-native/) wrapper around the [Quiet Project](https://github.com/quiet/quiet), which enables us to transfer data over sound at a fairly high speed. This has a number of benefits:
 
   - Super cross-platform. (You just need a microphone and a speaker.)
   - Broadcast to devices within range without pairing.
