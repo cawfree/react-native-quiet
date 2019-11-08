@@ -1,6 +1,5 @@
 #import "RNQuiet.h"
 
-#import <AFNetworking/AFNetworking.h>
 #import <QuietModemKit/QuietModemKit.h>
 
 @implementation RNQuiet
