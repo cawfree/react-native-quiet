@@ -1,9 +1,10 @@
 # react-native-quiet
 
-This is a [React Native](https://facebook.github.io/react-native/) wrapper around the [Quiet Project](https://github.com/quiet/quiet), which enables us to transfer data over sound at a high speed. This has a number of benefits:
+This is a [React Native](https://facebook.github.io/react-native/) wrapper around the [Quiet Project](https://github.com/quiet/quiet), which enables us to transfer data over sound at a fairly high speed. This has a number of benefits:
 
   - Super cross-platform. (You just need a microphone and a speaker.)
   - Broadcast to devices within range without pairing.
+  - No network connection required.
 
 Quiet can even go _ultrasonic_, allowing us to communicate without impacting on noise levels that are perceptible by human ears.
 
@@ -69,7 +70,7 @@ project(':quiet').projectDir = new File(rootProject.projectDir, '../node_modules
 
 On iOS, after installing be sure to sync your Cocoapods. Ensure that:
 
-1. The line `pod 'react-native-quiet', :path => '../../react-native-quiet.podspec'` is visible in your `Podfile`.
+1. The line `pod 'react-native-quiet', :path => '../node_modules/react-native-quiet/react-native-quiet.podspec'` is visible in your Podfile.
 2. You have ran `pod install` inside your `/ios` directory.
 
 ### Mostly automatic installation (Pre: 0.60.0)
