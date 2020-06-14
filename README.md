@@ -62,7 +62,7 @@ In your `<project-dir>/android/settings.gradle`, append the `:quiet` native proj
 
 ```java
 include ':quiet'
-project(':quiet').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-quiet/android/org.quietmodem.Quiet/quiet')
+project(':quiet').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-quiet/android/org.quietmodem.Quiet')
 
 ```
 
