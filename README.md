@@ -8,7 +8,7 @@ This is a [**React Native**](https://facebook.github.io/react-native/) wrapper a
 
 Quiet can even go _ultrasonic_, allowing us to communicate without impacting on noise levels that are perceptible by human ears.
 
-Try the awesome online demo [here](https://quiet.github.io/quiet-js/).
+Try the awesome online demo [**here**](https://quiet.github.io/quiet-js/).
 
 ## 🚀 Getting started
 
