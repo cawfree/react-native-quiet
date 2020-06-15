@@ -56,7 +56,7 @@ repositories {
     }
     maven {
         // Android Quiet is packaged by react-native-quiet.
-        url "$rootDir/../node_modules/react-native-quiet/android/org.quietmodem.Quiet/quiet"
+        url "$rootDir/../node_modules/react-native-quiet/android/Transducer/quiet"
     }
     google()
     jcenter()

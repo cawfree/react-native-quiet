@@ -5,7 +5,7 @@
   "description": "🤫 Quiet for React Native.",
   "main": "index.js",
   "scripts": {
-    "postinstall": "cd android && rm -rf org.quietmodem.Quiet && git clone https://github.com/quiet/org.quietmodem.Quiet && cd ..",
+    "postinstall": "cd android && rm -rf org.quietmodem.Quiet && rm -rf Transducer && git clone https://github.com/quiet/org.quietmodem.Quiet && mv org.quietmodem.Quiet Transducer && cd ..",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
