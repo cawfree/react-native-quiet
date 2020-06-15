@@ -39,6 +39,17 @@ Finally, under **File > Project Structure**, be sure to define your `Android NDK
 
 On iOS, after installing be sure to sync your Cocoapods via `pod install`.
 
+### Upgrading
+
+#### 0.1.0
+
+**android/settings.xml**
+```diff
+
+include ':quiet'
+- project(':quiet').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-quiet/android/org.quietmodem.Quiet/quiet')
++ project(':quiet').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-quiet/android/Transducer/quiet')
+```
 
 ## ✍️ Example
 
